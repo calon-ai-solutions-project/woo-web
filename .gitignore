@@ -1,0 +1,8 @@
+.env
+*.sql
+*.sql.gz
+wp-content/uploads/
+node_modules/
+.DS_Store
+tools/ebay-to-woo/input/
+tools/ebay-to-woo/output/
