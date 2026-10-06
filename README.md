@@ -59,7 +59,7 @@ This starts the containers, installs WordPress (en_GB), Kadence and WooCommerce 
 
 ## Owner details to fill in
 
-Placeholders in [SQUARE BRACKETS] live in one file: `wp-content/themes/clo-child/inc/site-config.php`. That file holds the company name, number, registered address and contact email shown in the footer, the announcement bar messages and the payment methods list. Pay-later wording (Klarna, Clearpay, PayPal Pay in 3) stays hidden until `CLO_SHOW_PAY_LATER` is switched on there.
+Placeholders in [SQUARE BRACKETS] live in one file: `wp-content/themes/clo-child/inc/site-config.php`. That file holds the company name, number, registered address and contact email shown in the footer, the announcement bar messages and the payment methods list. Pay-later wording (Klarna, Clearpay, PayPal Pay in 3) stays hidden until you add `define( 'CLO_SHOW_PAY_LATER', true );` to `wp-config.php`.
 
 ## Not in Git, ever
 
