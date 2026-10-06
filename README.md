@@ -22,6 +22,29 @@ You need Git, the GitHub CLI (`gh`), Docker Desktop and Claude Code installed.
 
 Claude Code reads `CLAUDE.md` automatically and works phase by phase, committing after each one.
 
+## Run the site locally
+
+With Docker Desktop running and `.env` in place:
+
+```bash
+./scripts/local-up.sh
+```
+
+This starts the containers, installs WordPress (en_GB), Kadence and WooCommerce with WP-CLI, and activates the child theme. The site is then at http://localhost:8080. It is safe to run again.
+
+## Build status
+
+| Phase | What | Status |
+| --- | --- | --- |
+| 0 | Local environment | Script written. Not yet run: Docker was not installed on the build machine |
+| 1 | Child theme: brand tokens, fonts, header, footer, buttons, product tiles | Done |
+| 2 | `scripts/setup.sh`: plugins, settings, categories, pages, menu | To do |
+| 3 | Homepage block patterns | To do |
+| 4 | Wholesale: tiered pricing, minimum quantities, enquiry form | To do |
+| 5 | eBay converter and 10 sample products | To do. Needs a sample eBay Seller Hub CSV |
+| 6 | Legal page drafts, SEO, cookie banner | To do |
+| 7 | `docs/DEPLOY.md` | To do |
+
 ## What is in here
 
 | Path | Purpose |
@@ -30,6 +53,13 @@ Claude Code reads `CLAUDE.md` automatically and works phase by phase, committing
 | `KICKOFF_PROMPT.md` | First prompt to paste into Claude Code |
 | `docker-compose.yml` | Local WordPress, WooCommerce database and WP-CLI on http://localhost:8080 |
 | `brand/` | Logo concept B (Yellow Sticker) as SVG, icon, and colour and font tokens |
+| `scripts/local-up.sh` | Starts Docker and installs WordPress, Kadence and WooCommerce |
+| `scripts/build-logos.py` | Rebuilds the theme's logo files from `brand/tokens.json` with the letters as outlines |
+| `wp-content/themes/clo-child/` | The Kadence child theme |
+
+## Owner details to fill in
+
+Placeholders in [SQUARE BRACKETS] live in one file: `wp-content/themes/clo-child/inc/site-config.php`. That file holds the company name, number, registered address and contact email shown in the footer, the announcement bar messages and the payment methods list. Pay-later wording (Klarna, Clearpay, PayPal Pay in 3) stays hidden until `CLO_SHOW_PAY_LATER` is switched on there.
 
 ## Not in Git, ever
 

@@ -6,3 +6,8 @@ node_modules/
 .DS_Store
 tools/ebay-to-woo/input/
 tools/ebay-to-woo/output/
+wp-content/upgrade/
+*.log
+__pycache__/
+.venv/
+.claude/
