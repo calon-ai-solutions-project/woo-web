@@ -51,6 +51,7 @@ This starts the containers, installs WordPress (en_GB) with WP-CLI, then runs `s
 | `docker-compose.yml` | Local WordPress, WooCommerce database and WP-CLI on http://localhost:8080 |
 | `brand/` | Logo concept B (Yellow Sticker) as SVG, icon, and colour and font tokens |
 | `scripts/local-up.sh` | Starts Docker, installs WordPress, then runs `setup.sh` |
+| `scripts/deploy.sh` | Uploads the theme, store plugin and setup scripts to a WordPress host over SSH (for example Hostinger) and runs `setup.sh` there |
 | `scripts/setup.sh` | Builds the store on any WordPress install with WP-CLI. Steps and page text are in `scripts/setup/` |
 | `scripts/build-logos.py` | Rebuilds the theme's logo files from `brand/tokens.json` with the letters as outlines |
 | `wp-content/themes/clo-child/` | The Kadence child theme |

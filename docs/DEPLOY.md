@@ -49,6 +49,29 @@ Before the first run, edit `wp-content/themes/clo-child/inc/site-config.php` in 
 
 Commit the change so the repo stays the single source of truth.
 
+## Shortcut: deploy with one command
+
+Once WordPress is installed (step 3), the owner details are filled in (step 4) and SSH works with a key, `scripts/deploy.sh` does steps 5 and 6 from your computer: it uploads the theme, the store plugin and the setup scripts, then builds the store on the server. Run it again after every change.
+
+**Set up an SSH key once** (so the script is not asked for a password at every step). On a Mac:
+
+```bash
+ssh-keygen -t ed25519 -C "clo-deploy"     # press Enter at each question
+cat ~/.ssh/id_ed25519.pub                 # copy the line it prints
+```
+
+On Hostinger, paste that line into hPanel > Advanced > SSH Access > SSH keys. The same page shows the IP address, port and username. Test it once with `ssh -p PORT USERNAME@IP` and answer `yes`.
+
+**Deploy:**
+
+```bash
+./scripts/deploy.sh -p PORT USERNAME@IP domains/clearanceliquidationoutlet.co.uk/public_html
+```
+
+The last part is the WordPress folder (the one holding `wp-config.php`), relative to your home folder on the server; on Hostinger it is usually `domains/YOUR-DOMAIN/public_html`. Options for `setup.sh`, such as `--reset-menus`, can go at the end.
+
+Skip steps 5 and 6 when you use this.
+
 ## 5. Copy the code to the server
 
 Clone the repo on the server, outside the web root, and copy the theme and the store plugin into WordPress:
