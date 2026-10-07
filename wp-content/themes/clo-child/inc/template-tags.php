@@ -147,3 +147,25 @@ function clo_footer_menu( $location, $heading ) {
 	</nav>
 	<?php
 }
+
+/**
+ * [clo_company_details] The company name, number, registered address and
+ * contact email from inc/site-config.php, for the Contact page.
+ */
+add_shortcode(
+	'clo_company_details',
+	function () {
+		$company = clo_company_details();
+		$email   = is_email( $company['email'] )
+			? sprintf( '<a href="%1$s">%2$s</a>', esc_url( 'mailto:' . antispambot( $company['email'] ) ), esc_html( antispambot( $company['email'] ) ) )
+			: esc_html( $company['email'] );
+
+		return sprintf(
+			'<address class="clo-company"><strong>%1$s</strong><br>Company number: %2$s<br>Registered address: %3$s<br>Email: %4$s</address>',
+			esc_html( $company['name'] ),
+			esc_html( $company['number'] ),
+			esc_html( $company['address'] ),
+			$email
+		);
+	}
+);

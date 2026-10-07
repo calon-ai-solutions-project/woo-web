@@ -71,3 +71,4 @@ docker compose run --rm -T --entrypoint bash wpcli /scripts/setup.sh "$@"
 echo
 echo "Ready: $SITE_URL"
 echo "Admin: $SITE_URL/wp-admin (user and password are in .env)"
+echo "Email: http://localhost:8025 (every email the local site sends)"

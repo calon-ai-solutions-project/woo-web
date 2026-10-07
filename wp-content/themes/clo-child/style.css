@@ -1289,6 +1289,226 @@ input[type="submit"]:hover {
 	color: var(--clo-white);
 }
 
+/* ==========================================================================
+   Content pages
+   ========================================================================== */
+
+.clo-lead {
+	max-width: 60ch;
+	font-size: 1.3rem;
+	line-height: 1.45;
+}
+
+.clo-callout:not(:has(> .wp-block-group__inner-container)),
+.clo-callout > .wp-block-group__inner-container {
+	margin-block: 2.5rem;
+	padding: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.clo-callout {
+	border-radius: var(--clo-radius-lg);
+	background: var(--clo-navy);
+	color: var(--clo-white);
+}
+
+.clo-callout h2,
+.clo-callout h3 {
+	margin-top: 0;
+	color: var(--clo-white);
+}
+
+.clo-checklist li + li {
+	margin-top: 0.5rem;
+}
+
+.clo-company {
+	font-style: normal;
+	line-height: 1.7;
+}
+
+/* ==========================================================================
+   Wholesale: bulk prices, minimum order, pallet delivery
+   ========================================================================== */
+
+.clo-bulk {
+	margin: 0 0 1.25rem;
+}
+
+.clo-bulk__table {
+	width: 100%;
+	max-width: 22rem;
+	margin: 0 0 0.5rem;
+	border-collapse: collapse;
+	background: var(--clo-white);
+}
+
+.clo-bulk__table caption {
+	padding-bottom: 0.4rem;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	text-align: left;
+	text-transform: uppercase;
+}
+
+.clo-bulk__table th,
+.clo-bulk__table td {
+	padding: 0.4rem 0.75rem;
+	border: 1px solid var(--clo-line);
+	text-align: left;
+}
+
+.clo-bulk__table thead th {
+	background: var(--clo-navy);
+	color: var(--clo-white);
+	font-weight: 600;
+}
+
+.clo-bulk__min {
+	display: inline-block;
+	margin: 0;
+	padding: 0.2rem 0.6rem;
+	border-radius: var(--clo-radius);
+	background: var(--clo-yellow);
+	color: var(--clo-navy);
+	font-weight: 600;
+}
+
+.clo-bulk-from {
+	display: block;
+	color: var(--clo-text-2);
+	font-family: var(--clo-font-body);
+	font-size: 0.6em;
+	font-weight: 600;
+	letter-spacing: 0.01em;
+}
+
+.clo-pallet-note {
+	padding: 0.75rem 1rem;
+	border-left: 4px solid var(--clo-yellow);
+	background: var(--clo-white);
+}
+
+/* ==========================================================================
+   Enquiry and contact forms
+   ========================================================================== */
+
+.clo-form {
+	max-width: 44rem;
+	margin-block: 1.5rem 2.5rem;
+}
+
+.clo-form__note {
+	color: var(--clo-text-2);
+}
+
+.clo-form__field {
+	margin-bottom: 1.1rem;
+}
+
+.clo-form__field > label {
+	display: block;
+	margin-bottom: 0.3rem;
+	font-weight: 600;
+}
+
+.clo-form__help {
+	display: block;
+	margin: -0.15rem 0 0.35rem;
+	color: var(--clo-text-2);
+	font-size: 1rem;
+}
+
+.clo-form input[type="text"],
+.clo-form input[type="email"],
+.clo-form input[type="tel"],
+.clo-form select,
+.clo-form textarea {
+	width: 100%;
+	min-height: 48px;
+	border: 1px solid #8C93A1;
+	border-radius: var(--clo-radius);
+	background: var(--clo-white);
+	color: var(--clo-navy);
+	font-size: 1.1rem;
+}
+
+.clo-form input[type="file"] {
+	max-width: 100%;
+	font-size: 1rem;
+}
+
+.clo-form__field--checkbox {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.6rem;
+}
+
+.clo-form__field--checkbox input {
+	flex: none;
+	width: 1.35rem;
+	height: 1.35rem;
+	margin-top: 0.2rem;
+	accent-color: var(--clo-navy);
+}
+
+.clo-form__field--checkbox label {
+	font-weight: 500;
+}
+
+.clo-form__field--checkbox .clo-form__error {
+	flex-basis: 100%;
+}
+
+.clo-form__req {
+	color: #A3261A;
+}
+
+.clo-form__error {
+	display: block;
+	margin-top: 0.3rem;
+	color: #A3261A;
+	font-weight: 600;
+}
+
+.clo-form .has-error input,
+.clo-form .has-error select,
+.clo-form .has-error textarea {
+	border: 2px solid #A3261A;
+}
+
+.clo-form__errors {
+	margin-bottom: 1.5rem;
+	padding: 1rem 1.25rem;
+	border: 2px solid #A3261A;
+	border-radius: var(--clo-radius);
+	background: var(--clo-white);
+}
+
+.clo-form__errors p,
+.clo-form__errors ul {
+	margin: 0;
+}
+
+.clo-form__errors ul {
+	padding-left: 1.25rem;
+}
+
+.clo-form__errors a {
+	color: #A3261A;
+}
+
+.clo-form--sent {
+	padding: 1.25rem 1.5rem;
+	border-left: 6px solid var(--clo-yellow);
+	border-radius: var(--clo-radius);
+	background: var(--clo-white);
+	font-size: 1.2rem;
+}
+
+.clo-form--sent p {
+	margin: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
 	* {
 		transition: none !important;

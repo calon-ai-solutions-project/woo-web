@@ -45,6 +45,28 @@
 		} );
 	} );
 
+	// The block basket and checkout change quantities without a page load.
+	// Keep the header count in step with WooCommerce's cart store.
+	window.addEventListener( 'load', function () {
+		var data = window.wp && window.wp.data;
+		if ( ! data || typeof data.subscribe !== 'function' ) {
+			return;
+		}
+		var last = null;
+		data.subscribe( function () {
+			var cart = data.select( 'wc/store/cart' );
+			var count = cart && cart.getCartData ? cart.getCartData().itemsCount : null;
+			if ( typeof count !== 'number' || count === last ) {
+				return;
+			}
+			last = count;
+			Array.prototype.forEach.call( document.querySelectorAll( '.clo-basket__count' ), function ( bubble ) {
+				bubble.setAttribute( 'data-count', String( count ) );
+				bubble.innerHTML = '<span class="screen-reader-text">Items in basket: </span>' + count;
+			} );
+		} );
+	} );
+
 	// Escape closes an open sub-menu and returns focus to its button.
 	header.addEventListener( 'keydown', function ( event ) {
 		if ( event.key !== 'Escape' ) {
