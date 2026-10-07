@@ -28,6 +28,49 @@ function clo_company_details() {
 }
 
 /**
+ * Where wholesale enquiries and contact messages are sent.
+ *
+ * Until this is a real address, messages go to the site admin email
+ * (Settings > General).
+ *
+ * @return string
+ */
+function clo_enquiry_inbox() {
+	return apply_filters( 'clo_enquiry_inbox', '[SHARED INBOX]' );
+}
+
+/**
+ * How soon a wholesale enquiry gets an answer, as shown on the site.
+ * For example "one working day".
+ *
+ * @return string
+ */
+function clo_response_time() {
+	return apply_filters( 'clo_response_time', '[RESPONSE TIME]' );
+}
+
+/**
+ * UK delivery prices in pounds, for example '4.99'.
+ *
+ * Used once, by scripts/setup.sh, when it creates the UK delivery method.
+ * While a price is still [PRICE], setup leaves delivery unset rather than
+ * go live with a made-up rate. After that, change prices in
+ * WooCommerce > Settings > Shipping. Pallet delivery is quoted after the
+ * order, so it has no price here.
+ *
+ * @return array<string,string>
+ */
+function clo_delivery_rates() {
+	return apply_filters(
+		'clo_delivery_rates',
+		array(
+			'standard-parcel' => '[PRICE]',
+			'large-parcel'    => '[PRICE]',
+		)
+	);
+}
+
+/**
  * Whether pay-later messaging (Klarna, Clearpay, PayPal Pay in 3) may be shown.
  *
  * Off until the owner confirms eligibility with each provider. Turn it on by

@@ -30,7 +30,7 @@ With Docker Desktop running and `.env` in place:
 ./scripts/local-up.sh
 ```
 
-This starts the containers, installs WordPress (en_GB), Kadence and WooCommerce with WP-CLI, and activates the child theme. The site is then at http://localhost:8080. It is safe to run again.
+This starts the containers, installs WordPress (en_GB) with WP-CLI, then runs `scripts/setup.sh` to build the store: Kadence and the child theme, the plugins, WooCommerce settings, categories, attributes, tags, shipping classes, pages and menus. The site is then at http://localhost:8080. It is safe to run again: pages and menus you have edited in the dashboard are kept. To rebuild the menus from scratch, run `./scripts/local-up.sh --reset-menus`.
 
 ## Build status
 
@@ -38,7 +38,7 @@ This starts the containers, installs WordPress (en_GB), Kadence and WooCommerce 
 | --- | --- | --- |
 | 0 | Local environment | Script written. Not yet run: Docker was not installed on the build machine |
 | 1 | Child theme: brand tokens, fonts, header, footer, buttons, product tiles | Done |
-| 2 | `scripts/setup.sh`: plugins, settings, categories, pages, menu | To do |
+| 2 | `scripts/setup.sh`: plugins, settings, categories, pages, menu | Done |
 | 3 | Homepage block patterns | To do |
 | 4 | Wholesale: tiered pricing, minimum quantities, enquiry form | To do |
 | 5 | eBay converter and 10 sample products | To do. Needs a sample eBay Seller Hub CSV |
@@ -53,13 +53,14 @@ This starts the containers, installs WordPress (en_GB), Kadence and WooCommerce 
 | `KICKOFF_PROMPT.md` | First prompt to paste into Claude Code |
 | `docker-compose.yml` | Local WordPress, WooCommerce database and WP-CLI on http://localhost:8080 |
 | `brand/` | Logo concept B (Yellow Sticker) as SVG, icon, and colour and font tokens |
-| `scripts/local-up.sh` | Starts Docker and installs WordPress, Kadence and WooCommerce |
+| `scripts/local-up.sh` | Starts Docker, installs WordPress, then runs `setup.sh` |
+| `scripts/setup.sh` | Builds the store on any WordPress install with WP-CLI. Steps and page text are in `scripts/setup/` |
 | `scripts/build-logos.py` | Rebuilds the theme's logo files from `brand/tokens.json` with the letters as outlines |
 | `wp-content/themes/clo-child/` | The Kadence child theme |
 
 ## Owner details to fill in
 
-Placeholders in [SQUARE BRACKETS] live in one file: `wp-content/themes/clo-child/inc/site-config.php`. That file holds the company name, number, registered address and contact email shown in the footer, the announcement bar messages and the payment methods list. Pay-later wording (Klarna, Clearpay, PayPal Pay in 3) stays hidden until you add `define( 'CLO_SHOW_PAY_LATER', true );` to `wp-config.php`.
+Placeholders in [SQUARE BRACKETS] live in one file: `wp-content/themes/clo-child/inc/site-config.php`. That file holds the company name, number, registered address and contact email shown in the footer, the inbox that receives enquiries, the enquiry response time, the UK delivery prices, the announcement bar messages and the payment methods list. Delivery is only switched on once real prices are in that file and `setup.sh` has run again. Pay-later wording (Klarna, Clearpay, PayPal Pay in 3) stays hidden until you add `define( 'CLO_SHOW_PAY_LATER', true );` to `wp-config.php`.
 
 ## Not in Git, ever
 
