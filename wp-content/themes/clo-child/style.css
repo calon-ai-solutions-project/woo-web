@@ -1321,6 +1321,46 @@ input[type="submit"]:hover {
 	margin-top: 0.5rem;
 }
 
+/* Legal pages: the draft notice and boxed text such as the cancellation form. */
+.clo-draft {
+	display: inline-block;
+	padding: 0.35rem 0.9rem;
+	border-radius: var(--clo-radius);
+	background: var(--clo-yellow);
+	color: var(--clo-navy);
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+
+.clo-boxed {
+	padding: 1.25rem 1.5rem;
+	border: 1px solid var(--clo-line);
+	border-radius: var(--clo-radius);
+	background: var(--clo-white);
+	line-height: 1.9;
+}
+
+.entry-content .wp-block-table table {
+	border-collapse: collapse;
+	background: var(--clo-white);
+}
+
+.entry-content .wp-block-table th,
+.entry-content .wp-block-table td {
+	padding: 0.55rem 0.8rem;
+	border: 1px solid var(--clo-line);
+	text-align: left;
+	vertical-align: top;
+}
+
+.entry-content .wp-block-table thead th {
+	border-color: var(--clo-navy);
+	background: var(--clo-navy);
+	color: var(--clo-white);
+	font-weight: 600;
+}
+
 .clo-company {
 	font-style: normal;
 	line-height: 1.7;

@@ -42,7 +42,7 @@ This starts the containers, installs WordPress (en_GB) with WP-CLI, then runs `s
 | 3 | Homepage block patterns | Done |
 | 4 | Wholesale: tiered pricing, minimum quantities, enquiry form | Done |
 | 5 | eBay converter and 10 sample products | To do. Needs a sample eBay Seller Hub CSV |
-| 6 | Legal page drafts, SEO, cookie banner | To do |
+| 6 | Legal page drafts, SEO, cookie banner | Done in code. Rank Math and Complianz each need their setup wizard run once (see `docs/DEPLOY.md`) |
 | 7 | `docs/DEPLOY.md` | To do |
 
 ## What is in here
