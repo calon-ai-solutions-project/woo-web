@@ -66,7 +66,8 @@ if [ "$installed" != true ]; then
 fi
 
 echo "Building the store..."
-docker compose run --rm -T --entrypoint bash wpcli /scripts/setup.sh "$@"
+# ${1+"$@"} rather than "$@": macOS ships bash 3.2, which errors on an empty "$@" under set -u.
+docker compose run --rm -T --entrypoint bash wpcli /scripts/setup.sh ${1+"$@"}
 
 echo
 echo "Ready: $SITE_URL"
