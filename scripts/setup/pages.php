@@ -126,6 +126,22 @@ foreach ( $clo_pages as $clo_page ) {
 	$clo_ids[ $clo_page['key'] ] = clo_setup_page( $clo_page );
 }
 
+// Kadence page settings for the homepage (the Kadence panel in the page editor): full
+// width, no page title and no extra padding, so the pattern bands run edge to edge.
+// Set once, so a change made in that panel is kept.
+foreach (
+	array(
+		'_kad_post_layout'           => 'fullwidth',
+		'_kad_post_title'            => 'hide',
+		'_kad_post_content_style'    => 'unboxed',
+		'_kad_post_vertical_padding' => 'hide',
+	) as $clo_meta_key => $clo_meta_value
+) {
+	if ( '' === get_post_meta( $clo_ids['home'], $clo_meta_key, true ) ) {
+		update_post_meta( $clo_ids['home'], $clo_meta_key, $clo_meta_value );
+	}
+}
+
 WP_CLI::log( 'Page roles' );
 clo_setup_option( 'show_on_front', 'page' );
 clo_setup_option( 'page_on_front', $clo_ids['home'] );

@@ -39,7 +39,7 @@ This starts the containers, installs WordPress (en_GB) with WP-CLI, then runs `s
 | 0 | Local environment | Script written. Not yet run: Docker was not installed on the build machine |
 | 1 | Child theme: brand tokens, fonts, header, footer, buttons, product tiles | Done |
 | 2 | `scripts/setup.sh`: plugins, settings, categories, pages, menu | Done |
-| 3 | Homepage block patterns | To do |
+| 3 | Homepage block patterns | Done |
 | 4 | Wholesale: tiered pricing, minimum quantities, enquiry form | To do |
 | 5 | eBay converter and 10 sample products | To do. Needs a sample eBay Seller Hub CSV |
 | 6 | Legal page drafts, SEO, cookie banner | To do |
@@ -57,6 +57,7 @@ This starts the containers, installs WordPress (en_GB) with WP-CLI, then runs `s
 | `scripts/setup.sh` | Builds the store on any WordPress install with WP-CLI. Steps and page text are in `scripts/setup/` |
 | `scripts/build-logos.py` | Rebuilds the theme's logo files from `brand/tokens.json` with the letters as outlines |
 | `wp-content/themes/clo-child/` | The Kadence child theme |
+| `wp-content/themes/clo-child/patterns/` | Homepage sections as block patterns. The Home page is built from them, and "Homepage: all sections" in the block inserter rebuilds it |
 
 ## Owner details to fill in
 

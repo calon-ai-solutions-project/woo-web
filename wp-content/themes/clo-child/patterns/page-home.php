@@ -1,3 +1,17 @@
+<?php
+/**
+ * Title: Homepage: all sections
+ * Slug: clo/page-home
+ * Categories: clo-home
+ * Description: The full homepage, top to bottom. Insert it into an empty page to rebuild the homepage.
+ * Keywords: home, homepage, front page
+ * Block Types: core/post-content
+ * Post Types: page
+ *
+ * @package clo-child
+ */
+
+?>
 <!-- wp:pattern {"slug":"clo/home-hero"} /-->
 
 <!-- wp:pattern {"slug":"clo/home-paths"} /-->

@@ -71,6 +71,18 @@ function clo_delivery_rates() {
 }
 
 /**
+ * The MailPoet form used for the homepage signup ("Get new stock alerts first.").
+ *
+ * The signup section stays hidden until MailPoet is set up and this returns the
+ * form's ID (MailPoet > Forms; the ID is in the form's shortcode).
+ *
+ * @return int
+ */
+function clo_signup_form_id() {
+	return (int) apply_filters( 'clo_signup_form_id', 0 );
+}
+
+/**
  * Whether pay-later messaging (Klarna, Clearpay, PayPal Pay in 3) may be shown.
  *
  * Off until the owner confirms eligibility with each provider. Turn it on by

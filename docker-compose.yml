@@ -22,6 +22,8 @@ services:
       WORDPRESS_DB_NAME: ${DB_NAME}
       WORDPRESS_DB_USER: ${DB_USER}
       WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
+      # Local only: theme changes such as new block patterns show without a version bump.
+      WORDPRESS_CONFIG_EXTRA: define( 'WP_DEVELOPMENT_MODE', 'theme' );
     volumes:
       - wp_data:/var/www/html
       - ./wp-content/themes/clo-child:/var/www/html/wp-content/themes/clo-child
@@ -37,6 +39,7 @@ services:
       WORDPRESS_DB_NAME: ${DB_NAME}
       WORDPRESS_DB_USER: ${DB_USER}
       WORDPRESS_DB_PASSWORD: ${DB_PASSWORD}
+      WORDPRESS_CONFIG_EXTRA: define( 'WP_DEVELOPMENT_MODE', 'theme' );
     volumes:
       - wp_data:/var/www/html
       - ./wp-content/themes/clo-child:/var/www/html/wp-content/themes/clo-child
