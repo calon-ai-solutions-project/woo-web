@@ -18,10 +18,12 @@ curl -fsS -o /dev/null "$site/" || { echo "The local site is not running at $sit
 
 rm -rf preview
 mkdir preview
-# wget exits non-zero when any single link fails, so the homepage check below decides success.
+# ?p= short links are skipped: WordPress redirects them to the real page, and wget
+# would then point menu links at the short-link copy. wget exits non-zero when
+# any single link fails, so the homepage check below decides success.
 wget -q -e robots=off --mirror --page-requisites --adjust-extension --convert-links \
 	--no-host-directories --directory-prefix=preview \
-	--reject-regex '(wp-admin|wp-login|xmlrpc|wp-json|/feed/|\?add-to-cart|\?s=|\?replytocom|oembed|wp-cron|\?orderby|\?filter_|\?sent=|product-page=)' \
+	--reject-regex '(wp-admin|wp-login|xmlrpc|wp-json|/feed/|\?p=|\?page_id=|\?add-to-cart|\?s=|\?replytocom|oembed|wp-cron|\?orderby|\?filter_|\?sent=|product-page=)' \
 	"$site/" || true
 [ -f preview/index.html ] || { echo "The mirror did not produce a homepage." >&2; exit 1; }
 

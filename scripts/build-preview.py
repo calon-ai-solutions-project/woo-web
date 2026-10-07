@@ -30,7 +30,7 @@ banner = ('<div id="clo-preview-bar" style="position:fixed;left:0;right:0;bottom
           '<div style="height:3rem" aria-hidden="true"></div>'
           '<script>document.addEventListener("submit",function(e){e.preventDefault();'
           'alert("This is a preview. Shopping and forms are switched off until the shop opens.");},true);</script>')
-head_drop = re.compile(r'<link[^>]+(?:EditURI|application/json\+oembed|text/xml\+oembed|https://api\.w\.org/|wp-json)[^>]*>\s*')
+head_drop = re.compile(r'<link[^>]+(?:EditURI|application/json\+oembed|text/xml\+oembed|application/rss\+xml|https://api\.w\.org/|wp-json|shortlink)[^>]*>\s*')
 wanted = set()
 for d, _, files in os.walk(root):
     for f in files:
@@ -48,10 +48,25 @@ for d, _, files in os.walk(root):
             if 'clo-preview-bar' not in t:
                 t = t.replace('</body>', banner + '</body>', 1)
         # Root-relative assets referenced anywhere, to fetch if missing.
-        for m in re.finditer(r'(/wp-(?:content|includes)/[^"\'\s)<>?#]+\.(?:css|js|woff2?|svg|png|jpe?g|webp|gif))', t):
+        for m in re.finditer(r'(/wp-(?:content|includes|admin/js)/[^"\'\s)<>?#]+\.(?:css|js|woff2?|svg|png|jpe?g|webp|gif))', t):
             wanted.add(m.group(1).replace('\\/', '/'))
         if t != o:
             open(p, 'w', encoding='utf-8', errors='surrogateescape').write(t)
+
+# 2b. A branded page for anything that is not part of the preview (Vercel serves 404.html).
+home = open(os.path.join(root, 'index.html'), encoding='utf-8', errors='surrogateescape').read()
+start, end = home.find('<main'), home.find('</main>')
+if start != -1 and end != -1:
+    notice = ('<main id="main" class="site-main"><div class="content-container site-container" style="padding:4rem 1.5rem;text-align:center">'
+              '<h1>Not part of the preview</h1>'
+              '<p style="font-size:1.3rem">This page works once the shop opens. For now, have a look around the '
+              '<a href="/">homepage</a>, the <a href="/wholesale-bulk-buy/">wholesale pages</a> and the '
+              '<a href="/shop/">shop categories</a>.</p></div></main>')
+    page404 = home[:start] + notice + home[end + len('</main>'):]
+    # Vercel serves 404.html at any missing address, so links copied from the
+    # homepage must start from the site root rather than from the current folder.
+    page404 = re.sub(r'\b(href|src)="(?!/|[a-z]+:|#)([^"]+)"', r'\1="/\2"', page404)
+    open(os.path.join(root, '404.html'), 'w', encoding='utf-8', errors='surrogateescape').write(page404)
 
 # 3. Fetch assets that pages reference but the mirror missed.
 fetched = 0
