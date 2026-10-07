@@ -131,7 +131,7 @@ wp rewrite flush >/dev/null
 
 cat <<'EOF'
 
-Store built. Still needed from the owner (see README.md):
+Store built. Still needed from the owner (see docs/DEPLOY.md):
   - Company details, contact inbox and delivery prices in wp-content/themes/clo-child/inc/site-config.php
   - Bank details for bank transfer: WooCommerce > Settings > Payments > Direct bank transfer
   - Connect Stripe and PayPal (both stay in test mode until you switch them to live)

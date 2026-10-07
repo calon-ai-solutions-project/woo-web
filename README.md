@@ -2,25 +2,21 @@
 
 WooCommerce store for clearanceliquidationoutlet.co.uk. This repo is built with Claude Code from the spec in `CLAUDE.md`.
 
-## Start in 5 steps
+## Get started
 
-You need Git, the GitHub CLI (`gh`), Docker Desktop and Claude Code installed.
+You need Git and Docker Desktop installed.
 
-1. Unzip this folder and open a terminal in it.
-2. Create the repo and push (personal account):
+1. Get the code:
    ```bash
-   git init && git add . && git commit -m "Project brief and brand kit"
-   gh repo create clearance-liquidation-outlet --private --source=. --push
+   git clone https://github.com/calon-ai-solutions-project/woo-web.git
+   cd woo-web
    ```
-   To put it under the Calon organisation instead, use `gh repo create [YOUR-ORG]/clearance-liquidation-outlet --private --source=. --push`.
-3. Copy `.env.example` to `.env` and set your own passwords.
-4. Start Claude Code in this folder:
-   ```bash
-   claude
-   ```
-5. Paste the prompt from `KICKOFF_PROMPT.md`.
+2. Copy `.env.example` to `.env` and set your own passwords.
+3. Start Docker Desktop, then run `./scripts/local-up.sh` (see below).
 
-Claude Code reads `CLAUDE.md` automatically and works phase by phase, committing after each one.
+To go live, follow `docs/DEPLOY.md`.
+
+To keep building with Claude Code, run `claude` in this folder. It reads `CLAUDE.md` automatically. `KICKOFF_PROMPT.md` was the first prompt, used for Phases 0 and 1.
 
 ## Run the site locally
 
@@ -36,20 +32,21 @@ This starts the containers, installs WordPress (en_GB) with WP-CLI, then runs `s
 
 | Phase | What | Status |
 | --- | --- | --- |
-| 0 | Local environment | Script written. Not yet run: Docker was not installed on the build machine |
+| 0 | Local environment | Done. Tested with Docker |
 | 1 | Child theme: brand tokens, fonts, header, footer, buttons, product tiles | Done |
 | 2 | `scripts/setup.sh`: plugins, settings, categories, pages, menu | Done |
 | 3 | Homepage block patterns | Done |
 | 4 | Wholesale: tiered pricing, minimum quantities, enquiry form | Done |
-| 5 | eBay converter and 10 sample products | To do. Needs a sample eBay Seller Hub CSV |
+| 5 | eBay converter and 10 sample products | Waiting for the owner: a sample eBay Seller Hub listings CSV, so the column mapping matches real exports. The sample products need real prices, so they come from the same file |
 | 6 | Legal page drafts, SEO, cookie banner | Done in code. Rank Math and Complianz each need their setup wizard run once (see `docs/DEPLOY.md`) |
-| 7 | `docs/DEPLOY.md` | To do |
+| 7 | `docs/DEPLOY.md` | Done |
 
 ## What is in here
 
 | Path | Purpose |
 | --- | --- |
-| `CLAUDE.md` | Full build spec: brand, plugins, structure, pages, copy, wholesale, payments, phases |
+| `CLAUDE.md` | Full build spec: brand, plugins, structure, pages, copy, wholesale, payments, phases, and the decisions made during the build |
+| `docs/DEPLOY.md` | How to put the store live on a UK WordPress host, connect the accounts, and the launch checklist |
 | `KICKOFF_PROMPT.md` | First prompt to paste into Claude Code |
 | `docker-compose.yml` | Local WordPress, WooCommerce database and WP-CLI on http://localhost:8080 |
 | `brand/` | Logo concept B (Yellow Sticker) as SVG, icon, and colour and font tokens |

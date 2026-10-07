@@ -130,3 +130,13 @@ Rank Math with sitemap and product schema. Clean permalinks (/product/%postname%
 5. eBay converter and 10 sample products following the formula.
 6. Legal page drafts, SEO configuration, cookie banner.
 7. `docs/DEPLOY.md`: how to deploy to a UK WordPress host and run setup there.
+
+## Decisions made during the build
+
+- Store logic lives in a must-use plugin, `wp-content/mu-plugins/clo-store/`, so it keeps working whatever the theme: bulk prices, minimum order quantities, pallet delivery, the enquiry and contact forms, and New Stock expiry. Presentation stays in the child theme.
+- Tiered pricing is built in rather than using woocommerce-wholesale-prices, whose free version prices by wholesale role, not by quantity. Install that plugin later, when trade-only accounts are added.
+- The wholesale enquiry and contact forms are built in rather than using Fluent Forms, so they are reproducible from code with no form setup stored in the database. Messages are kept under Enquiries in the dashboard.
+- The UK delivery method is only created once real prices are in `site-config.php`. Pallet items cost nothing at checkout and are labelled "pallet delivery quoted after your order".
+- Pages created by `setup.sh` remember a hash of the text they were given. Re-running setup updates a page only if nobody has edited it since.
+- WordPress caches a theme's block patterns by theme version: raise the version in `style.css` and `CLO_VERSION` when patterns change. Local Docker runs in theme development mode, which skips the cache.
+- The homepage is set to Kadence's full-width layout with no page title through the page meta keys `_kad_post_layout`, `_kad_post_title`, `_kad_post_content_style` and `_kad_post_vertical_padding`. These could not be checked against Kadence's source during the build (wordpress.org was unreachable); confirm on the first local run that the homepage has no "Home" title and full-width bands, and adjust in the page's Kadence panel if not.
