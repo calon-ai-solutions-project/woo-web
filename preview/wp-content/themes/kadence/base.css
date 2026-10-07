@@ -1,0 +1,20 @@
+/* Stand-in for Kadence's base CSS. Local testing only. */
+*,*::before,*::after{box-sizing:border-box}
+:root{--global-palette1:#13233F;--global-palette2:#FFD21F;--global-palette3:#13233F;--global-palette4:#13233F;--global-palette5:#4A566B;--global-palette6:#5C6779;--global-palette7:#E7E3D6;--global-palette8:#F7F5EE;--global-palette9:#FFFFFF;--global-content-width:1290px;--global-content-edge-padding:1.5rem}
+body{margin:0;font-family:"Barlow Condensed","Arial Narrow",Arial,sans-serif;font-weight:500;font-size:19px;line-height:1.5;color:#13233F;background:#F7F5EE}
+img{max-width:100%;height:auto}
+a{color:#13233F}
+h1,h2,h3,h4,h5,h6{color:#13233F;margin:0 0 .5em}
+h1{font-size:46px;line-height:1.15}h2{font-size:36px;line-height:1.15}h3{font-size:28px;line-height:1.15}
+.content-container{max-width:var(--global-content-width);margin:0 auto;padding:2.5rem 1.5rem}
+.home .content-container{max-width:none;padding:0}
+.screen-reader-text{position:absolute!important;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.button,.wp-block-button__link,.wp-element-button,button.button,input[type=submit]{background:#FFD21F;color:#13233F;border:0;text-decoration:none;display:inline-block;cursor:pointer}
+.button:hover,.wp-block-button__link:hover{background:#13233F;color:#fff}
+.is-style-outline .wp-block-button__link{background:transparent;border:2px solid currentColor}
+.woocommerce ul.products{display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem;list-style:none;padding:0;margin:0}
+@media(max-width:767px){.woocommerce ul.products{grid-template-columns:repeat(2,1fr);gap:.75rem}}
+.woocommerce ul.products::before,.woocommerce ul.products::after{display:none}
+.woocommerce ul.products li.product{width:auto!important;margin:0!important;float:none!important;position:relative}
+.woocommerce ul.products li.product .entry-content-wrap{padding:.9rem 1rem 1rem}
+input[type=text],input[type=email],input[type=tel],input[type=number],select,textarea{width:100%;padding:.6rem .75rem;border:1px solid #c9c4b4;border-radius:6px;font:inherit;color:#13233F;background:#fff}

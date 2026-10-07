@@ -1,0 +1,1556 @@
+/*
+Theme Name: CL Outlet
+Theme URI: https://clearanceliquidationoutlet.co.uk
+Description: Kadence child theme for Clearance Liquidation Outlet. Brand concept B, Yellow Sticker.
+Author: Clearance Liquidation Outlet
+Template: kadence
+Version: 0.2.0
+Requires at least: 6.3
+Requires PHP: 7.4
+License: GNU General Public License v3.0 (or later)
+License URI: https://www.gnu.org/licenses/gpl-3.0.html
+Text Domain: clo-child
+*/
+
+/* ==========================================================================
+   Tokens. Colours and fonts mirror brand/tokens.json.
+   Kadence's own palette variables are set from the same values in inc/brand.php.
+   ========================================================================== */
+
+:root {
+	--clo-navy: #13233F;
+	--clo-yellow: #FFD21F;
+	--clo-chalk: #F7F5EE;
+	--clo-white: #FFFFFF;
+
+	--clo-text-2: #4A566B;            /* secondary text, 6.8:1 on chalk */
+	--clo-line: #E7E3D6;              /* borders on chalk and white */
+	--clo-on-navy-2: #C5CBD6;         /* secondary text on navy, 9.6:1 */
+	--clo-line-on-navy: rgba(255, 255, 255, 0.16);
+
+	--clo-font-body: "Barlow Condensed", "Arial Narrow", Arial, sans-serif;
+	--clo-font-display: Anton, Impact, "Arial Narrow Bold", sans-serif;
+
+	--clo-radius: 6px;
+	--clo-radius-lg: 12px;
+	--clo-tilt: -3deg;
+}
+
+.clo-container {
+	width: 100%;
+	max-width: var(--global-content-width, 1290px);
+	margin-inline: auto;
+	padding-inline: var(--global-content-edge-padding, 1.5rem);
+}
+
+/* ==========================================================================
+   Type
+   ========================================================================== */
+
+body {
+	letter-spacing: 0.01em;
+}
+
+/* Anton has a single weight. Stop the browser faking a bold. */
+h1, h2, h3,
+.entry-title,
+.woocommerce div.product .product_title {
+	font-family: var(--clo-font-display);
+	font-weight: 400;
+	letter-spacing: 0.015em;
+}
+
+h4, h5, h6 {
+	font-family: var(--clo-font-body);
+	font-weight: 600;
+}
+
+strong, b, th, dt {
+	font-weight: 600;
+}
+
+/* ==========================================================================
+   Focus. Navy ring on light backgrounds, yellow ring on navy.
+   ========================================================================== */
+
+:focus-visible {
+	outline: 3px solid var(--clo-navy);
+	outline-offset: 2px;
+}
+
+.clo-announce :focus-visible,
+.clo-header__main :focus-visible,
+.clo-footer :focus-visible {
+	outline-color: var(--clo-yellow);
+}
+
+/* ==========================================================================
+   Buttons. Colours come from Kadence's button variables (inc/brand.php):
+   primary is yellow with navy text, never white text on yellow.
+   ========================================================================== */
+
+.button,
+button.button,
+.wp-block-button__link,
+.wp-element-button,
+input[type="submit"],
+.woocommerce a.button,
+.woocommerce button.button,
+.woocommerce #respond input#submit {
+	font-family: var(--clo-font-body);
+	font-weight: 600;
+	font-size: 1.05rem;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	line-height: 1.2;
+	padding: 0.75em 1.5em;
+	border-radius: var(--clo-radius);
+	box-shadow: none;
+	transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease;
+}
+
+.button:hover,
+.wp-block-button__link:hover,
+.wp-element-button:hover,
+input[type="submit"]:hover {
+	box-shadow: none;
+}
+
+.wp-block-button.is-style-outline .wp-block-button__link {
+	border-width: 2px;
+	padding: calc(0.75em - 2px) calc(1.5em - 2px);
+}
+
+/* ==========================================================================
+   Announcement bar
+   ========================================================================== */
+
+.clo-announce {
+	background: var(--clo-navy);
+	color: var(--clo-white);
+	border-bottom: 1px solid var(--clo-line-on-navy);
+	font-size: 0.95rem;
+	font-weight: 500;
+	letter-spacing: 0.04em;
+}
+
+.clo-announce__list {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 0 0.75em;
+	list-style: none;
+	margin-block: 0;
+	padding-block: 0.4rem;
+	text-align: center;
+}
+
+.clo-announce__list li:not(:last-child)::after {
+	content: "\00B7";
+	margin-inline-start: 0.75em;
+	color: var(--clo-yellow);
+}
+
+/* ==========================================================================
+   Header
+   ========================================================================== */
+
+.clo-header {
+	position: relative;
+	z-index: 100;
+}
+
+.clo-header__main {
+	background: var(--clo-navy);
+	color: var(--clo-white);
+}
+
+.clo-header__row {
+	display: grid;
+	grid-template-columns: auto minmax(0, 1fr) auto;
+	grid-template-areas: "logo search actions";
+	align-items: center;
+	gap: 1rem 2rem;
+	padding-block: 0.9rem;
+}
+
+.clo-logo {
+	grid-area: logo;
+	display: block;
+	line-height: 0;
+}
+
+.clo-logo img {
+	display: block;
+	height: 72px;
+	width: auto;
+	max-width: none;
+}
+
+/* Search: large and always visible. */
+.clo-search {
+	grid-area: search;
+	display: flex;
+	width: 100%;
+	max-width: 720px;
+	margin-inline: auto;
+	background: var(--clo-white);
+	border-radius: var(--clo-radius);
+}
+
+.clo-search:focus-within {
+	outline: 3px solid var(--clo-yellow);
+	outline-offset: 2px;
+}
+
+.clo-search .clo-search__field {
+	flex: 1 1 auto;
+	min-width: 0;
+	height: 52px;
+	padding: 0 1rem;
+	border: 0;
+	border-radius: var(--clo-radius) 0 0 var(--clo-radius);
+	background: transparent;
+	color: var(--clo-navy);
+	font-family: var(--clo-font-body);
+	font-size: 1.2rem;
+	font-weight: 500;
+	box-shadow: none;
+	outline: 0;
+}
+
+.clo-search .clo-search__field::placeholder {
+	color: var(--clo-text-2);
+	opacity: 1;
+}
+
+.clo-search .clo-search__submit {
+	display: inline-flex;
+	align-items: center;
+	gap: 0.4em;
+	height: 52px;
+	padding: 0 1.25rem;
+	border: 0;
+	border-radius: 0 var(--clo-radius) var(--clo-radius) 0;
+	background: var(--clo-yellow);
+	color: var(--clo-navy);
+	font-family: var(--clo-font-body);
+	font-size: 1.05rem;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	box-shadow: none;
+	cursor: pointer;
+}
+
+.clo-search .clo-search__submit:hover {
+	background: var(--clo-white);
+	color: var(--clo-navy);
+	box-shadow: inset 0 0 0 2px var(--clo-yellow);
+}
+
+.clo-search .clo-search__submit:focus-visible {
+	outline: 0;
+}
+
+/* Account, basket, menu toggle */
+.clo-header__actions {
+	grid-area: actions;
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.clo-action {
+	position: relative;
+	display: inline-flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 0.1rem;
+	min-width: 56px;
+	min-height: 52px;
+	padding: 0.25rem 0.5rem;
+	border: 0;
+	border-radius: var(--clo-radius);
+	background: transparent;
+	color: var(--clo-white);
+	font-family: var(--clo-font-body);
+	font-size: 0.9rem;
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	text-decoration: none;
+	line-height: 1.1;
+	box-shadow: none;
+	cursor: pointer;
+}
+
+.clo-action:hover,
+.clo-action:focus {
+	background: transparent;
+	color: var(--clo-yellow);
+	box-shadow: none;
+}
+
+.clo-icon {
+	display: block;
+	flex: none;
+}
+
+.clo-basket__count {
+	position: absolute;
+	top: 0;
+	right: 2px;
+	min-width: 1.35rem;
+	padding: 0 0.3rem;
+	border-radius: 999px;
+	background: var(--clo-yellow);
+	color: var(--clo-navy);
+	font-size: 0.85rem;
+	font-weight: 600;
+	letter-spacing: 0;
+	line-height: 1.35rem;
+	text-align: center;
+}
+
+.clo-basket__count[data-count="0"] {
+	display: none;
+}
+
+.clo-menu-toggle {
+	display: none;
+}
+
+.clo-menu-toggle .clo-icon--close,
+.clo-menu-toggle[aria-expanded="true"] .clo-icon--menu {
+	display: none;
+}
+
+.clo-menu-toggle[aria-expanded="true"] .clo-icon--close {
+	display: block;
+}
+
+/* ==========================================================================
+   Main menu
+   ========================================================================== */
+
+.clo-nav {
+	background: var(--clo-white);
+	border-bottom: 1px solid var(--clo-line);
+}
+
+.clo-menu,
+.clo-menu .sub-menu {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.clo-menu {
+	display: flex;
+	align-items: center;
+	gap: 0.25rem;
+}
+
+.clo-menu > .menu-item {
+	position: relative;
+	display: flex;
+	align-items: center;
+}
+
+.clo-menu a {
+	display: block;
+	padding: 0.85rem 0.9rem;
+	color: var(--clo-navy);
+	font-size: 1.15rem;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	text-decoration: none;
+	line-height: 1.2;
+}
+
+.clo-menu > .menu-item:first-child > a {
+	padding-inline-start: 0;
+}
+
+.clo-menu > .menu-item > a:hover,
+.clo-menu > .current-menu-item > a,
+.clo-menu > .current-menu-ancestor > a {
+	box-shadow: inset 0 -4px 0 var(--clo-yellow);
+}
+
+/* Wholesale Enquiries: yellow button, pushed to the right end. */
+.clo-menu > .clo-menu-button {
+	margin-inline-start: auto;
+	order: 99;
+}
+
+.clo-menu > .clo-menu-button > a {
+	padding: 0.55rem 1.1rem;
+	border-radius: var(--clo-radius);
+	background: var(--clo-yellow);
+	color: var(--clo-navy);
+	box-shadow: none;
+}
+
+.clo-menu > .clo-menu-button > a:hover {
+	background: var(--clo-navy);
+	color: var(--clo-white);
+	box-shadow: none;
+}
+
+/* Sub-menu toggle button (added by header.js) */
+.clo-sub-toggle {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 28px;
+	height: 28px;
+	margin-inline-start: -0.6rem;
+	padding: 0;
+	border: 0;
+	border-radius: var(--clo-radius);
+	background: transparent;
+	color: var(--clo-navy);
+	box-shadow: none;
+	cursor: pointer;
+}
+
+.clo-sub-toggle:hover,
+.clo-sub-toggle:focus {
+	background: var(--clo-chalk);
+	color: var(--clo-navy);
+	box-shadow: none;
+}
+
+.clo-menu > .is-open > .clo-sub-toggle .clo-icon {
+	transform: rotate(180deg);
+}
+
+@media (min-width: 1025px) {
+	.clo-menu .sub-menu {
+		position: absolute;
+		top: 100%;
+		left: -1rem;
+		z-index: 10;
+		display: none;
+		grid-template-columns: repeat(2, minmax(200px, 1fr));
+		gap: 0 0.5rem;
+		padding: 0.75rem;
+		background: var(--clo-white);
+		border: 1px solid var(--clo-line);
+		border-top: 4px solid var(--clo-yellow);
+		border-radius: 0 0 var(--clo-radius-lg) var(--clo-radius-lg);
+		box-shadow: 0 12px 24px rgba(19, 35, 63, 0.12);
+	}
+
+	.clo-menu > .menu-item:hover > .sub-menu,
+	.clo-menu > .menu-item:focus-within > .sub-menu,
+	.clo-menu > .menu-item.is-open > .sub-menu {
+		display: grid;
+	}
+
+	.clo-menu .sub-menu a {
+		padding: 0.5rem 0.75rem;
+		border-radius: var(--clo-radius);
+		font-size: 1.05rem;
+		font-weight: 500;
+		letter-spacing: 0.02em;
+		text-transform: none;
+		white-space: nowrap;
+	}
+
+	.clo-menu .sub-menu a:hover,
+	.clo-menu .sub-menu a:focus {
+		background: var(--clo-chalk);
+	}
+}
+
+/* ==========================================================================
+   Header and menu below 1025px (Kadence's tablet breakpoint)
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+	.clo-header__row {
+		grid-template-columns: auto 1fr;
+		grid-template-areas:
+			"logo actions"
+			"search search";
+		gap: 0.75rem 1rem;
+		padding-block: 0.75rem;
+	}
+
+	.clo-logo img {
+		height: 56px;
+	}
+
+	.clo-header__actions {
+		justify-content: flex-end;
+		gap: 0.25rem;
+	}
+
+	.clo-search {
+		max-width: none;
+	}
+
+	.clo-search .clo-search__field,
+	.clo-search .clo-search__submit {
+		height: 48px;
+	}
+
+	.clo-menu-toggle {
+		display: inline-flex;
+	}
+
+	/* Closed by default once JavaScript is running; open without it. */
+	.clo-header.has-js .clo-nav:not(.is-open) {
+		display: none;
+	}
+
+	.clo-menu {
+		flex-direction: column;
+		align-items: stretch;
+		gap: 0;
+		padding-block: 0.5rem 1rem;
+	}
+
+	.clo-menu > .menu-item {
+		flex-wrap: wrap;
+		border-bottom: 1px solid var(--clo-line);
+	}
+
+	.clo-menu > .menu-item > a {
+		flex: 1 1 auto;
+		padding: 0.9rem 0;
+		box-shadow: none;
+	}
+
+	.clo-sub-toggle {
+		width: 48px;
+		height: 48px;
+		margin: 0;
+	}
+
+	.clo-menu .sub-menu {
+		flex: 0 0 100%;
+		padding: 0 0 0.75rem 0.75rem;
+	}
+
+	.clo-header.has-js .clo-menu > .menu-item:not(.is-open) > .sub-menu {
+		display: none;
+	}
+
+	.clo-menu .sub-menu a {
+		padding: 0.6rem 0;
+		font-size: 1.1rem;
+		font-weight: 500;
+		letter-spacing: 0.02em;
+		text-transform: none;
+	}
+
+	.clo-menu > .clo-menu-button {
+		order: 0;
+		margin: 1rem 0 0;
+		border-bottom: 0;
+	}
+
+	.clo-menu > .clo-menu-button > a {
+		padding: 0.85rem 1.1rem;
+		text-align: center;
+	}
+}
+
+@media (max-width: 480px) {
+	.clo-search .clo-search__submit-label {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		clip-path: inset(50%);
+		white-space: nowrap;
+	}
+
+	.clo-search .clo-search__submit {
+		padding-inline: 1rem;
+	}
+
+	.clo-action {
+		min-width: 48px;
+	}
+
+	.clo-announce {
+		font-size: 0.85rem;
+	}
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.clo-footer {
+	background: var(--clo-navy);
+	color: var(--clo-on-navy-2);
+	font-size: 1.05rem;
+}
+
+.clo-footer a {
+	color: var(--clo-white);
+	text-decoration: none;
+}
+
+.clo-footer a:hover {
+	color: var(--clo-yellow);
+	text-decoration: underline;
+}
+
+.clo-footer__grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+	gap: 2.5rem 3rem;
+	padding-block: 3.5rem 3rem;
+}
+
+.clo-footer__brand p {
+	max-width: 32ch;
+	margin: 1.25rem 0 0;
+}
+
+.clo-footer .clo-logo img {
+	height: 84px;
+}
+
+.clo-footer .clo-footer__heading {
+	margin: 0 0 0.9rem;
+	color: var(--clo-white);
+	font-family: var(--clo-font-body);
+	font-size: 1.05rem;
+	font-weight: 600;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+}
+
+.clo-footer__links {
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.clo-footer__links li + li {
+	margin-top: 0.45rem;
+}
+
+.clo-footer__company address {
+	display: grid;
+	gap: 0.3rem;
+	font-style: normal;
+}
+
+.clo-footer__base {
+	border-top: 1px solid var(--clo-line-on-navy);
+}
+
+.clo-footer__base-row {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem 2rem;
+	padding-block: 1.25rem;
+}
+
+.clo-payments {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.5rem 0.9rem;
+}
+
+.clo-payments__label {
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.clo-payments__list {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.4rem;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+.clo-payments__list li {
+	padding: 0.15rem 0.6rem;
+	border: 1px solid var(--clo-line-on-navy);
+	border-radius: var(--clo-radius);
+	color: var(--clo-white);
+	font-size: 0.95rem;
+	font-weight: 600;
+	letter-spacing: 0.03em;
+}
+
+.clo-footer__copyright {
+	margin: 0;
+}
+
+/* ==========================================================================
+   Product tiles (shop, category and search pages, product grids in blocks)
+   ========================================================================== */
+
+.woocommerce ul.products li.product,
+.wc-block-grid__products .wc-block-grid__product {
+	display: flex;
+	flex-direction: column;
+	overflow: hidden;
+	background: var(--clo-white);
+	border: 1px solid var(--clo-line);
+	border-radius: var(--clo-radius-lg);
+	transition: border-color 0.15s ease;
+}
+
+.woocommerce ul.products li.product:hover,
+.woocommerce ul.products li.product:focus-within {
+	border-color: var(--clo-navy);
+}
+
+.woocommerce ul.products li.product a.woocommerce-loop-image-link {
+	display: block;
+	background: var(--clo-white);
+}
+
+.woocommerce ul.products li.product a.woocommerce-loop-image-link img {
+	width: 100%;
+	aspect-ratio: 1;
+	object-fit: contain;
+	margin: 0;
+	border-radius: 0;
+}
+
+.woocommerce ul.products li.product .entry-content-wrap {
+	display: flex;
+	flex: 1 1 auto;
+	flex-direction: column;
+	margin: 0;
+	padding: 0.9rem 1rem 1rem;
+	border-radius: 0;
+	box-shadow: none;
+}
+
+.woocommerce ul.products li.product .product-details .woocommerce-loop-product__title,
+.wc-block-grid__products .wc-block-grid__product .wc-block-grid__product-title {
+	margin: 0 0 0.4rem;
+	padding: 0;
+	font-family: var(--clo-font-body);
+	font-size: 1.15rem;
+	font-weight: 600;
+	letter-spacing: 0.01em;
+	line-height: 1.2;
+}
+
+.woocommerce ul.products li.product .woocommerce-loop-product__title a {
+	color: var(--clo-navy);
+	text-decoration: none;
+}
+
+.woocommerce ul.products li.product .woocommerce-loop-product__title a:hover {
+	text-decoration: underline;
+}
+
+/* Prices in Anton. A sale price sits on a yellow highlight. */
+.woocommerce ul.products li.product .product-details .price,
+.wc-block-grid__products .wc-block-grid__product .wc-block-grid__product-price,
+.woocommerce div.product p.price,
+.woocommerce div.product span.price {
+	color: var(--clo-navy);
+	font-family: var(--clo-font-display);
+	font-size: 1.5rem;
+	font-weight: 400;
+	letter-spacing: 0.02em;
+	line-height: 1.2;
+}
+
+.woocommerce div.product p.price,
+.woocommerce div.product span.price {
+	font-size: 2rem;
+}
+
+.woocommerce ul.products li.product .price del,
+.woocommerce div.product p.price del,
+.woocommerce div.product span.price del {
+	margin-inline-end: 0.4em;
+	color: var(--clo-text-2);
+	opacity: 1;
+	font-family: var(--clo-font-body);
+	font-size: 0.7em;
+	font-weight: 500;
+}
+
+.woocommerce ul.products li.product .price ins,
+.woocommerce div.product p.price ins,
+.woocommerce div.product span.price ins {
+	padding: 0 0.25em;
+	border-radius: 3px;
+	background: var(--clo-yellow);
+	color: var(--clo-navy);
+	font-weight: 400;
+	text-decoration: none;
+}
+
+.woocommerce ul.products li.product .price .woocommerce-price-suffix,
+.woocommerce div.product .price .woocommerce-price-suffix {
+	font-family: var(--clo-font-body);
+	font-size: 0.6em;
+	font-weight: 500;
+}
+
+.woocommerce ul.products li.product .product-action-wrap {
+	margin-top: auto;
+	padding-top: 0.75rem;
+}
+
+.woocommerce ul.products li.product .product-action-wrap .button {
+	display: block;
+	width: 100%;
+	text-align: center;
+}
+
+/* Two tiles per row on phones: keep the button label on one line. */
+@media (max-width: 480px) {
+	.woocommerce ul.products li.product .entry-content-wrap {
+		padding: 0.75rem 0.75rem 0.85rem;
+	}
+
+	.woocommerce ul.products li.product .product-action-wrap .button {
+		padding: 0.7em 0.4em;
+		font-size: 0.95rem;
+		letter-spacing: 0.03em;
+	}
+}
+
+/* Sale badge: a yellow sticker, tilted like the logo. */
+.woocommerce span.onsale,
+.woocommerce ul.products li.product .onsale,
+.wc-block-grid__product-onsale {
+	top: 0.75rem;
+	left: 0.75rem;
+	right: auto;
+	min-width: 0;
+	min-height: 0;
+	margin: 0;
+	padding: 0.2rem 0.65rem;
+	border: 0;
+	border-radius: var(--clo-radius);
+	background: var(--clo-yellow);
+	color: var(--clo-navy);
+	font-family: var(--clo-font-display);
+	font-size: 1rem;
+	font-weight: 400;
+	letter-spacing: 0.05em;
+	line-height: 1.4;
+	text-transform: uppercase;
+	transform: rotate(var(--clo-tilt));
+}
+
+.woocommerce .star-rating span::before,
+.woocommerce p.stars a {
+	color: var(--clo-navy);
+}
+
+/* ==========================================================================
+   Page sections (homepage patterns and other full-width bands)
+
+   In classic themes WordPress wraps a group's blocks in an extra
+   .wp-block-group__inner-container div. Layout rules below target that
+   wrapper when it is there, and the group itself when it is not.
+   ========================================================================== */
+
+.clo-band {
+	padding-block: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+/* Bands sit edge to edge; their content lines up with the header. */
+.entry-content > .clo-band,
+.entry-content > .clo-hero {
+	margin-block: 0;
+}
+
+.clo-band--white {
+	background: var(--clo-white);
+}
+
+.clo-band--navy {
+	background: var(--clo-navy);
+	color: var(--clo-white);
+}
+
+.clo-band--navy h2,
+.clo-band--navy h3 {
+	color: var(--clo-white);
+}
+
+.clo-band--yellow {
+	background: var(--clo-yellow);
+	color: var(--clo-navy);
+}
+
+.clo-band .wp-block-heading,
+.clo-section-head__title {
+	margin-top: 0;
+}
+
+.clo-section-head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 0.5rem 1.5rem;
+	margin-bottom: 1.5rem;
+}
+
+.clo-section-head .clo-section-head__title {
+	margin: 0;
+}
+
+.clo-section-head__more {
+	color: var(--clo-navy);
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	text-transform: uppercase;
+	text-decoration-thickness: 2px;
+	text-underline-offset: 0.2em;
+}
+
+.clo-section-head__more::after {
+	content: " \2192";
+}
+
+.clo-empty {
+	padding: 1.5rem;
+	border: 1px dashed var(--clo-line);
+	border-radius: var(--clo-radius-lg);
+	background: var(--clo-white);
+	color: var(--clo-text-2);
+	text-align: center;
+}
+
+/* Hero */
+.clo-hero {
+	overflow: hidden;
+	padding-block: clamp(2.5rem, 6vw, 5.5rem);
+	background: var(--clo-chalk);
+}
+
+.clo-hero__inner:not(:has(> .wp-block-group__inner-container)),
+.clo-hero__inner > .wp-block-group__inner-container {
+	display: grid;
+	grid-template-columns: minmax(0, 1.5fr) minmax(0, 1fr);
+	align-items: center;
+	gap: 2.5rem 3rem;
+}
+
+.clo-hero .clo-hero__title {
+	margin: 0 0 1rem;
+	font-size: clamp(2.4rem, 5vw, 4.1rem);
+	line-height: 1.04;
+}
+
+.clo-hero__kicker {
+	margin: 0 0 1rem;
+	font-size: 1.2rem;
+	font-weight: 600;
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+
+.clo-hero__text {
+	max-width: 38ch;
+	margin: 0 0 1.75rem;
+	font-size: 1.3rem;
+	line-height: 1.45;
+}
+
+.clo-hero__buttons {
+	gap: 0.75rem;
+}
+
+.clo-hero__stickers:not(:has(> .wp-block-group__inner-container)),
+.clo-hero__stickers > .wp-block-group__inner-container {
+	display: grid;
+	justify-items: center;
+	gap: 1.1rem;
+}
+
+.clo-sticker {
+	display: inline-block;
+	margin: 0;
+	padding: 0.45rem 1.5rem 0.55rem;
+	border-radius: var(--clo-radius-lg);
+	font-family: var(--clo-font-display);
+	font-size: clamp(1.9rem, 3.2vw, 2.8rem);
+	line-height: 1.1;
+	letter-spacing: 0.02em;
+	text-transform: uppercase;
+	box-shadow: 0 6px 0 rgba(19, 35, 63, 0.14);
+}
+
+.clo-sticker--one {
+	background: var(--clo-yellow);
+	color: var(--clo-navy);
+	transform: rotate(var(--clo-tilt)) translateX(-1.5rem);
+}
+
+.clo-sticker--two {
+	background: var(--clo-navy);
+	color: var(--clo-white);
+	transform: rotate(2deg) translateX(1.5rem);
+}
+
+.clo-sticker--three {
+	border: 3px solid var(--clo-navy);
+	background: var(--clo-white);
+	color: var(--clo-navy);
+	transform: rotate(-1.5deg);
+}
+
+@media (max-width: 781px) {
+	.clo-hero__inner:not(:has(> .wp-block-group__inner-container)),
+	.clo-hero__inner > .wp-block-group__inner-container {
+		grid-template-columns: 1fr;
+	}
+
+	.clo-hero__stickers:not(:has(> .wp-block-group__inner-container)),
+	.clo-hero__stickers > .wp-block-group__inner-container {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: flex-start;
+		gap: 0.6rem;
+	}
+
+	.clo-sticker {
+		padding: 0.25rem 0.8rem 0.3rem;
+		font-size: 1.25rem;
+		box-shadow: none;
+	}
+
+	.clo-sticker--one,
+	.clo-sticker--two,
+	.clo-sticker--three {
+		transform: rotate(var(--clo-tilt));
+	}
+}
+
+/* Two ways to shop */
+.clo-paths__grid:not(:has(> .wp-block-group__inner-container)),
+.clo-paths__grid > .wp-block-group__inner-container {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 340px), 1fr));
+	gap: 1.5rem;
+}
+
+.clo-path:not(:has(> .wp-block-group__inner-container)),
+.clo-path > .wp-block-group__inner-container {
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	height: 100%;
+	padding: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.clo-path {
+	border-radius: var(--clo-radius-lg);
+}
+
+.clo-path p {
+	flex: 1 1 auto;
+	margin: 0 0 1.5rem;
+	font-size: 1.2rem;
+}
+
+.clo-path .clo-path__title {
+	margin: 0 0 0.75rem;
+	font-size: clamp(1.7rem, 2.6vw, 2.2rem);
+}
+
+.clo-path--retail {
+	border: 2px solid var(--clo-navy);
+	background: var(--clo-chalk);
+}
+
+.clo-path--trade {
+	background: var(--clo-navy);
+	color: var(--clo-white);
+}
+
+.clo-path--trade .clo-path__title {
+	color: var(--clo-white);
+}
+
+/* Category tiles */
+.clo-tiles {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(min(100%, 170px), 1fr));
+	gap: 1rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.clo-tile__link {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.4rem;
+	height: 100%;
+	padding: 1.25rem 0.75rem 1.1rem;
+	border: 1px solid var(--clo-line);
+	border-radius: var(--clo-radius-lg);
+	background: var(--clo-white);
+	color: var(--clo-navy);
+	text-align: center;
+	text-decoration: none;
+	transition: border-color 0.15s ease;
+}
+
+.clo-tile__link:hover,
+.clo-tile__link:focus-visible {
+	border-color: var(--clo-navy);
+	color: var(--clo-navy);
+}
+
+.clo-tile__media {
+	display: grid;
+	place-items: center;
+	width: 72px;
+	height: 72px;
+	margin-bottom: 0.35rem;
+	overflow: hidden;
+	border-radius: var(--clo-radius-lg);
+	background: var(--clo-yellow);
+	color: var(--clo-navy);
+	transform: rotate(var(--clo-tilt));
+}
+
+.clo-tile__media img {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	transform: rotate(3deg) scale(1.1);
+}
+
+.clo-tile__name {
+	font-size: 1.15rem;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	line-height: 1.2;
+	text-transform: uppercase;
+}
+
+.clo-tile__count {
+	color: var(--clo-text-2);
+	font-size: 0.95rem;
+}
+
+@media (max-width: 480px) {
+	.clo-tiles {
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 0.6rem;
+	}
+
+	.clo-tile__name {
+		font-size: 1rem;
+	}
+}
+
+/* Wholesale enquiries banner */
+.clo-trade-banner__inner:not(:has(> .wp-block-group__inner-container)),
+.clo-trade-banner__inner > .wp-block-group__inner-container {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1.5rem 3rem;
+}
+
+.clo-trade-banner__copy {
+	flex: 1 1 32rem;
+}
+
+.clo-trade-banner__copy p {
+	max-width: 60ch;
+	margin: 0;
+	color: var(--clo-on-navy-2);
+	font-size: 1.25rem;
+}
+
+.clo-trade-banner .clo-trade-banner__title {
+	margin: 0 0 0.6rem;
+}
+
+/* Why shop with us */
+.clo-why__grid:not(:has(> .wp-block-group__inner-container)),
+.clo-why__grid > .wp-block-group__inner-container {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+	gap: 1.5rem;
+}
+
+.clo-why__item {
+	padding-top: 1rem;
+	border-top: 4px solid var(--clo-yellow);
+}
+
+.clo-why .clo-why__title {
+	margin: 0 0 0.35rem;
+	font-family: var(--clo-font-body);
+	font-size: 1.3rem;
+	font-weight: 600;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+}
+
+.clo-why__item p {
+	margin: 0;
+	color: var(--clo-text-2);
+}
+
+/* Reviews */
+.clo-reviews__list {
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 260px), 1fr));
+	gap: 1.5rem;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.clo-review {
+	padding: 1.5rem;
+	border-radius: var(--clo-radius-lg);
+	background: var(--clo-chalk);
+}
+
+.clo-review__stars {
+	margin: 0 0 0.5rem;
+	color: var(--clo-navy);
+	font-size: 1.25rem;
+	letter-spacing: 0.1em;
+}
+
+.clo-review__text {
+	margin: 0 0 1rem;
+	padding: 0;
+	border: 0;
+	font-size: 1.15rem;
+	font-style: normal;
+}
+
+.clo-review__text p {
+	margin: 0;
+}
+
+.clo-review__by {
+	margin: 0;
+	color: var(--clo-text-2);
+	font-size: 1rem;
+}
+
+/* Email signup */
+.clo-signup__inner {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem 3rem;
+}
+
+.clo-signup__copy p {
+	margin: 0;
+	font-size: 1.15rem;
+}
+
+.clo-signup__form {
+	flex: 1 1 22rem;
+	max-width: 32rem;
+}
+
+/* Yellow bands: buttons switch to navy so they stand out. */
+.clo-band--yellow .wp-block-button__link,
+.clo-band--yellow input[type="submit"] {
+	background: var(--clo-navy);
+	color: var(--clo-white);
+}
+
+/* Navy bands: outline buttons in white. */
+.clo-band--navy .is-style-outline .wp-block-button__link {
+	border-color: var(--clo-white);
+	color: var(--clo-white);
+}
+
+/* ==========================================================================
+   Content pages
+   ========================================================================== */
+
+.clo-lead {
+	max-width: 60ch;
+	font-size: 1.3rem;
+	line-height: 1.45;
+}
+
+.clo-callout:not(:has(> .wp-block-group__inner-container)),
+.clo-callout > .wp-block-group__inner-container {
+	margin-block: 2.5rem;
+	padding: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.clo-callout {
+	border-radius: var(--clo-radius-lg);
+	background: var(--clo-navy);
+	color: var(--clo-white);
+}
+
+.clo-callout h2,
+.clo-callout h3 {
+	margin-top: 0;
+	color: var(--clo-white);
+}
+
+.clo-checklist li + li {
+	margin-top: 0.5rem;
+}
+
+/* Legal pages: the draft notice and boxed text such as the cancellation form. */
+.clo-draft {
+	display: inline-block;
+	padding: 0.35rem 0.9rem;
+	border-radius: var(--clo-radius);
+	background: var(--clo-yellow);
+	color: var(--clo-navy);
+	font-weight: 600;
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+}
+
+.clo-boxed {
+	padding: 1.25rem 1.5rem;
+	border: 1px solid var(--clo-line);
+	border-radius: var(--clo-radius);
+	background: var(--clo-white);
+	line-height: 1.9;
+}
+
+.entry-content .wp-block-table table {
+	border-collapse: collapse;
+	background: var(--clo-white);
+}
+
+.entry-content .wp-block-table th,
+.entry-content .wp-block-table td {
+	padding: 0.55rem 0.8rem;
+	border: 1px solid var(--clo-line);
+	text-align: left;
+	vertical-align: top;
+}
+
+.entry-content .wp-block-table thead th {
+	border-color: var(--clo-navy);
+	background: var(--clo-navy);
+	color: var(--clo-white);
+	font-weight: 600;
+}
+
+.clo-company {
+	font-style: normal;
+	line-height: 1.7;
+}
+
+/* ==========================================================================
+   Wholesale: bulk prices, minimum order, pallet delivery
+   ========================================================================== */
+
+.clo-bulk {
+	margin: 0 0 1.25rem;
+}
+
+.clo-bulk__table {
+	width: 100%;
+	max-width: 22rem;
+	margin: 0 0 0.5rem;
+	border-collapse: collapse;
+	background: var(--clo-white);
+}
+
+.clo-bulk__table caption {
+	padding-bottom: 0.4rem;
+	font-weight: 600;
+	letter-spacing: 0.05em;
+	text-align: left;
+	text-transform: uppercase;
+}
+
+.clo-bulk__table th,
+.clo-bulk__table td {
+	padding: 0.4rem 0.75rem;
+	border: 1px solid var(--clo-line);
+	text-align: left;
+}
+
+.clo-bulk__table thead th {
+	background: var(--clo-navy);
+	color: var(--clo-white);
+	font-weight: 600;
+}
+
+.clo-bulk__min {
+	display: inline-block;
+	margin: 0;
+	padding: 0.2rem 0.6rem;
+	border-radius: var(--clo-radius);
+	background: var(--clo-yellow);
+	color: var(--clo-navy);
+	font-weight: 600;
+}
+
+.clo-bulk-from {
+	display: block;
+	color: var(--clo-text-2);
+	font-family: var(--clo-font-body);
+	font-size: 0.6em;
+	font-weight: 600;
+	letter-spacing: 0.01em;
+}
+
+.clo-pallet-note {
+	padding: 0.75rem 1rem;
+	border-left: 4px solid var(--clo-yellow);
+	background: var(--clo-white);
+}
+
+/* ==========================================================================
+   Enquiry and contact forms
+   ========================================================================== */
+
+.clo-form {
+	max-width: 44rem;
+	margin-block: 1.5rem 2.5rem;
+}
+
+.clo-form__note {
+	color: var(--clo-text-2);
+}
+
+.clo-form__field {
+	margin-bottom: 1.1rem;
+}
+
+.clo-form__field > label {
+	display: block;
+	margin-bottom: 0.3rem;
+	font-weight: 600;
+}
+
+.clo-form__help {
+	display: block;
+	margin: -0.15rem 0 0.35rem;
+	color: var(--clo-text-2);
+	font-size: 1rem;
+}
+
+.clo-form input[type="text"],
+.clo-form input[type="email"],
+.clo-form input[type="tel"],
+.clo-form select,
+.clo-form textarea {
+	width: 100%;
+	min-height: 48px;
+	border: 1px solid #8C93A1;
+	border-radius: var(--clo-radius);
+	background: var(--clo-white);
+	color: var(--clo-navy);
+	font-size: 1.1rem;
+}
+
+.clo-form input[type="file"] {
+	max-width: 100%;
+	font-size: 1rem;
+}
+
+.clo-form__field--checkbox {
+	display: flex;
+	align-items: flex-start;
+	gap: 0.6rem;
+}
+
+.clo-form__field--checkbox input {
+	flex: none;
+	width: 1.35rem;
+	height: 1.35rem;
+	margin-top: 0.2rem;
+	accent-color: var(--clo-navy);
+}
+
+.clo-form__field--checkbox label {
+	font-weight: 500;
+}
+
+.clo-form__field--checkbox .clo-form__error {
+	flex-basis: 100%;
+}
+
+.clo-form__req {
+	color: #A3261A;
+}
+
+.clo-form__error {
+	display: block;
+	margin-top: 0.3rem;
+	color: #A3261A;
+	font-weight: 600;
+}
+
+.clo-form .has-error input,
+.clo-form .has-error select,
+.clo-form .has-error textarea {
+	border: 2px solid #A3261A;
+}
+
+.clo-form__errors {
+	margin-bottom: 1.5rem;
+	padding: 1rem 1.25rem;
+	border: 2px solid #A3261A;
+	border-radius: var(--clo-radius);
+	background: var(--clo-white);
+}
+
+.clo-form__errors p,
+.clo-form__errors ul {
+	margin: 0;
+}
+
+.clo-form__errors ul {
+	padding-left: 1.25rem;
+}
+
+.clo-form__errors a {
+	color: #A3261A;
+}
+
+.clo-form--sent {
+	padding: 1.25rem 1.5rem;
+	border-left: 6px solid var(--clo-yellow);
+	border-radius: var(--clo-radius);
+	background: var(--clo-white);
+	font-size: 1.2rem;
+}
+
+.clo-form--sent p {
+	margin: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+	* {
+		transition: none !important;
+	}
+}
