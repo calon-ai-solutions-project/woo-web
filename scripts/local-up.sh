@@ -1,13 +1,12 @@
 #!/usr/bin/env bash
 #
-# Phase 0: start the local Docker environment and install WordPress, the
-# Kadence theme, WooCommerce and the CL Outlet child theme with WP-CLI.
+# Start the local Docker environment, install WordPress with WP-CLI, then
+# build the store with scripts/setup.sh (theme, plugins, settings,
+# categories, pages and menus).
 #
 # Run from anywhere:  ./scripts/local-up.sh
 # Safe to run again: every step checks before it acts.
-#
-# The store itself (settings, categories, pages, menus) is built by
-# scripts/setup.sh, which comes in Phase 2.
+# Options are passed on to setup.sh, for example --reset-menus.
 
 set -euo pipefail
 cd "$(dirname "$0")/.."
@@ -66,13 +65,11 @@ if [ "$installed" != true ]; then
 	exit 1
 fi
 
-wp theme is-installed kadence || wp theme install kadence
-wp plugin is-installed woocommerce || wp plugin install woocommerce
-wp plugin is-active woocommerce || wp plugin activate woocommerce
-if [ "$(wp theme list --status=active --field=name)" != "clo-child" ]; then
-	wp theme activate clo-child
-fi
+echo "Building the store..."
+# ${1+"$@"} rather than "$@": macOS ships bash 3.2, which errors on an empty "$@" under set -u.
+docker compose run --rm -T --entrypoint bash wpcli /scripts/setup.sh ${1+"$@"}
 
 echo
 echo "Ready: $SITE_URL"
 echo "Admin: $SITE_URL/wp-admin (user and password are in .env)"
+echo "Email: http://localhost:8025 (every email the local site sends)"
